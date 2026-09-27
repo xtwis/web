@@ -25,11 +25,8 @@
   ],
   "scripts": {
     "dev": "vitepress dev",
-    "docs:dev": "vitepress dev",
     "build": "vitepress build",
-    "docs:build": "vitepress build",
     "preview": "vitepress preview",
-    "docs:preview": "vitepress preview",
     "lint": "eslint",
     "fix": "eslint . --fix",
     "prepare": "husky"
