@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set node
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install
+        run: pnpm i --frozen-lockfile
+
+      - name: Lint style
+        run: pnpm run lint
+
+      - name: Lint commit messages
+        uses: wagoid/commitlint-github-action@v6
