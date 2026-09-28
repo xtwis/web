@@ -29,6 +29,7 @@
     "preview": "vitepress preview",
     "lint": "eslint",
     "fix": "eslint . --fix",
+    "check": "tsc --noEmit",
     "prepare": "husky"
   },
   "devDependencies": {

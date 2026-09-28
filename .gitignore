@@ -150,3 +150,10 @@ vite.config.ts.timestamp-*
 
 # Editor
 .idea
+
+# 文档动态插入
+/docs/**
+
+# 文档白名单
+!/docs/index.md
+!/docs/public/**
