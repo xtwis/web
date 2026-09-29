@@ -1,7 +1,8 @@
 # 文档动态插入
-/.gitignore
+/*
 
 # 白名单
 !.gitignore
 
 !index.md
+!config.ts
