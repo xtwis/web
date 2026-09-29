@@ -1,9 +1,10 @@
 import type { LocaleConfig } from "vitepress"
 
 export const locales: LocaleConfig = {
-  root: {
+  en: {
     label: "English",
     lang: "en",
+    dir: "en",
   },
   zh: {
     label: "简体中文",
