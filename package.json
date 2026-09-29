@@ -2,13 +2,11 @@
   "name": "@xtwis/web",
   "type": "module",
   "version": "1.0.0",
+  "private": true,
   "packageManager": "pnpm@11.24.0",
   "description": "xtwis documentation site — Twisuki's open-source toolkit.",
   "author": "Twisuki",
   "license": "MIT",
-  "publishConfig": {
-    "access": "private"
-  },
   "homepage": "https://github.com/xtwis/web#readme",
   "repository": {
     "type": "git",
