@@ -1,7 +1,5 @@
 import { defineConfig } from "vitepress"
-import { locales } from "./locales"
 import { sidebar } from "./sidebar"
-import { socialLinks } from "./socialLinks"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -17,8 +15,23 @@ export default defineConfig({
 
   themeConfig: {
     sidebar,
-    socialLinks,
+    socialLinks: [
+      { icon: "github", link: "https://github.com/xtwis" },
+      { icon: "x", link: "https://twitter.com/suyang_233" },
+      { icon: "bilibili", link: "https://space.bilibili.com/317707977" },
+    ],
   },
 
-  locales,
+  locales: {
+    en: {
+      label: "English",
+      lang: "en",
+      dir: "en",
+    },
+    zh: {
+      label: "简体中文",
+      lang: "zh_CN",
+      dir: "zh",
+    },
+  },
 })

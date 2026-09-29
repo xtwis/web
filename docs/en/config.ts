@@ -1,8 +1,8 @@
 import { defineAdditionalConfig } from "vitepress"
-import { nav } from "../../.vitepress/nav"
+import { localNav } from "../../.vitepress/nav"
 
 export default defineAdditionalConfig({
   themeConfig: {
-    nav: nav("en"),
+    nav: localNav("en"),
   },
 })
