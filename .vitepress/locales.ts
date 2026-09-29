@@ -1,14 +1,11 @@
 import type { LocaleConfig } from "vitepress"
+import collection from "./collection"
+
+function buildLocales(): LocaleConfig {
+  const locales = collection.locales
+  return Object.fromEntries(locales.map(l => [l.dir, l]))
+}
 
 export const locales: LocaleConfig = {
-  en: {
-    label: "English",
-    lang: "en",
-    dir: "en",
-  },
-  zh: {
-    label: "简体中文",
-    lang: "zh_cn",
-    dir: "zh",
-  },
+  ...buildLocales(),
 }

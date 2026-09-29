@@ -21,4 +21,16 @@ export default {
       items: ["@xtwis/ohday", "@xtwis/ohnet"],
     },
   ],
+  locales: [
+    {
+      label: "English",
+      lang: "en",
+      dir: "en",
+    },
+    {
+      label: "简体中文",
+      lang: "zh_cn",
+      dir: "zh",
+    },
+  ],
 }

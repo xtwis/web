@@ -20,9 +20,19 @@ export type NavItem = string | {
   items: string[]
 }
 
+export interface LocaleItem {
+  /** 语言标签 */
+  label: string
+  /** 语言名称 */
+  lang: string
+  /** 语言路径 */
+  dir: string
+}
+
 export interface Collection {
   items: Item[]
   nav: NavItem[]
+  locales: LocaleItem[]
 }
 
 export default collection as Collection
