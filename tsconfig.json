@@ -16,5 +16,5 @@
     "noUncheckedSideEffectImports": true,
     "skipLibCheck": true
   },
-  "include": [".vitepress/**/*", "*.ts", "*.mjs"]
+  "include": [".vitepress/**/*", "scripts/**/*", "*.ts", "*.mjs"]
 }

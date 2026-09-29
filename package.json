@@ -24,9 +24,10 @@
     "vitepress"
   ],
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview",
+    "sync": "node --env-file-if-exists=.env scripts/sync/index.mjs",
+    "dev": "pnpm run sync && vitepress dev",
+    "build": "pnpm run sync && vitepress build",
+    "preview": "pnpm run sync && vitepress preview",
     "lint": "eslint",
     "fix": "eslint . --fix",
     "check": "tsc --noEmit",
