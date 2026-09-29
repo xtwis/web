@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress"
+import { locales } from "./locales"
 import { nav } from "./nav"
 import { sidebar } from "./sidebar"
 import { socialLinks } from "./socialLinks"
@@ -16,9 +17,10 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav,
     sidebar,
     socialLinks,
   },
+
+  locales,
 })

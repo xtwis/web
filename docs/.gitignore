@@ -1,0 +1,9 @@
+# 文档动态插入
+/*
+
+# 白名单
+!.gitignore
+!public
+
+!index.md
+!zh/
