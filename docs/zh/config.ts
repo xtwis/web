@@ -1,13 +1,3 @@
-import { defineAdditionalConfig } from "vitepress"
-import { withSidebar } from "vitepress-sidebar"
-import { localNav } from "../../.vitepress/nav"
+import { defineLocaleConfig } from "../../.vitepress/locale"
 
-export default defineAdditionalConfig(withSidebar({
-  themeConfig: {
-    nav: localNav("zh"),
-  },
-}, [{
-  documentRootPath: "docs",
-  scanStartPath: "zh/ohnet",
-  resolvePath: "/zh/ohnet/",
-}]))
+export default defineLocaleConfig("zh")
