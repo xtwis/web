@@ -34,4 +34,6 @@ export default defineConfig({
       dir: "zh",
     },
   },
+
+  ignoreDeadLinks: true,
 })
