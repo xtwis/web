@@ -1,8 +1,8 @@
+import type { UserConfig } from "vitepress"
 import { defineConfig } from "vitepress"
-import { sidebar } from "./sidebar"
+import { withSidebar } from "vitepress-sidebar"
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
+const option = {
   srcDir: "docs",
 
   title: "Twis Project",
@@ -14,7 +14,6 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    sidebar,
     socialLinks: [
       { icon: "github", link: "https://github.com/xtwis" },
       { icon: "x", link: "https://twitter.com/suyang_233" },
@@ -36,4 +35,7 @@ export default defineConfig({
   },
 
   ignoreDeadLinks: true,
-})
+} as const satisfies UserConfig
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig(withSidebar(option))
