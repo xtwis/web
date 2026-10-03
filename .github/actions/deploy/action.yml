@@ -1,0 +1,28 @@
+name: deploy
+description: Trigger a Vercel deploy hook via POST request.
+
+inputs:
+  hook-url:
+    description: Vercel deploy hook URL.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: POST to Vercel deploy hook
+      shell: bash
+      env:
+        HOOK_URL: ${{ inputs.hook-url }}
+      run: |
+        if [[ -z "$HOOK_URL" ]]; then
+          echo "hook-url input is empty"
+          exit 1
+        fi
+        response=$(curl -sS -o /tmp/body -w "%{http_code}" \
+          -X POST "$HOOK_URL")
+        echo "Status: $response"
+        cat /tmp/body
+        if [[ "$response" != "201" ]]; then
+          echo "Deploy hook returned non-201"
+          exit 1
+        fi

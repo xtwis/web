@@ -1,0 +1,21 @@
+name: sync-docs
+
+on:
+  repository_dispatch:
+    types:
+      - docs-sync
+
+concurrency:
+  group: sync-docs
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/deploy
+        with:
+          hook-url: ${{ secrets.VERCEL_DEPLOY_HOOK }}

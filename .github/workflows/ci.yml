@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
@@ -35,3 +34,12 @@ jobs:
 
       - name: Lint commit messages
         uses: wagoid/commitlint-github-action@v6
+
+  deploy:
+    needs: lint
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/deploy
+        with:
+          hook-url: ${{ secrets.VERCEL_DEPLOY_HOOK }}
