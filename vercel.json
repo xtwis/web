@@ -1,6 +1,6 @@
 {
   "framework": "vitepress",
-  "buildCommand": "pnpm build",
+  "buildCommand": "pnpm build:sync",
   "outputDirectory": ".vitepress/dist",
   "redirects": [
     { "source": "/", "destination": "/en", "statusCode": 301 }

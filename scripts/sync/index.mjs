@@ -1,6 +1,6 @@
 import process from "node:process"
+import { logger } from "../logger.mjs"
 import { fetchDocs } from "./github.mjs"
-import { logger } from "./logger.mjs"
 import { writeDocs } from "./write.mjs"
 
 const SOURCE_URL = new URL("./source.mjs", import.meta.url)
@@ -38,7 +38,10 @@ export async function run() {
   const { items, locales } = mod.default
   for (const item of items) {
     await processItem(item, locales)
+    logger("info", `sync ${item.repo} done`)
   }
+
+  logger("info", "sync docs done\n")
 }
 
 run().catch((err) => {

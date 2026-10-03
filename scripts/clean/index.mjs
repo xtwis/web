@@ -1,6 +1,7 @@
 import { readdir, rm } from "node:fs/promises"
 import { join } from "node:path"
 import process from "node:process"
+import { logger } from "../logger.mjs"
 
 const DOCS = join(process.cwd(), "docs")
 
@@ -30,7 +31,9 @@ async function clean(dir, relBase = "") {
   }))
 }
 
-clean(DOCS).catch((err) => {
-  console.error(err.message)
+clean(DOCS).then(() => {
+  logger("info", "clean docs done\n")
+}).catch((err) => {
+  logger("error", "clean docs failed: ", err.message)
   process.exit(1)
 })
