@@ -6,25 +6,36 @@ import { withSidebar } from "vitepress-sidebar"
 export function defineLocaleConfig(locale: string): AdditionalConfig {
   const addPrefix = (link: string, prefix: boolean = true): string => `${prefix ? "/" : ""}${locale}${link}`
 
+  const buildNav = (title: string, path: string): DefaultTheme.NavItem => {
+    return { text: title, link: addPrefix(`/${path}`), activeMatch: addPrefix(`/${path}`) }
+  }
+
+  const buildSidebar = (path: string): VitePressSidebarOptions => {
+    return {
+      documentRootPath: "docs",
+      scanStartPath: addPrefix(`/${path}`, false),
+      resolvePath: addPrefix(`/${path}/`),
+      includeRootIndexFile: true,
+      includeFolderIndexFile: true,
+      sortMenusByFrontmatterOrder: true,
+      useTitleFromFrontmatter: true,
+    }
+  }
+
   const config = {
     themeConfig: {
       nav: [
         { text: "Home", link: addPrefix("/") },
-        { text: "OhDay", link: addPrefix("/ohday"), activeMatch: addPrefix("/ohday") },
-        { text: "OhNet", link: addPrefix("/ohnet"), activeMatch: addPrefix("/ohnet") },
+        buildNav("OhDay", "ohday"),
+        buildNav("OhNet", "ohnet"),
       ] as DefaultTheme.NavItem[],
     },
   } as UserConfig
 
-  const sidebar = [{
-    documentRootPath: "docs",
-    scanStartPath: addPrefix("/ohnet", false),
-    resolvePath: addPrefix("/ohnet/"),
-    includeRootIndexFile: true,
-    includeFolderIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-    useTitleFromFrontmatter: true,
-  }] as VitePressSidebarOptions[]
+  const sidebar = [
+    buildSidebar("ohday"),
+    buildSidebar("ohnet"),
+  ] as VitePressSidebarOptions[]
 
   return defineAdditionalConfig(withSidebar(config, sidebar))
 }
