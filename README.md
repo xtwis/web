@@ -20,9 +20,10 @@ pnpm build
 ## Structure
 
 - `docs/` — VitePress source (this repo's own content).
-- `docs/packages/` — _generated_, not committed. Synced from each package repo's `docs/` during CI build.
+- `docs/<locale>/<slug>/` — _generated_, not committed. Synced from each package repo's `docs/` during Vercel build (`pnpm build:sync`).
 
 ## Deployment
 
-Pushed to GitHub Pages via `.github/workflows/deploy.yml` on a daily cron plus
-`workflow_dispatch`. See the workflow file for details.
+Triggered on push to `main` via `.github/workflows/ci.yml` (after lint passes) and on `repository_dispatch` events of type `docs-sync` via `.github/workflows/sync-docs.yml`.
+
+Both workflows `POST` the deploy hook configured in `secrets.VERCEL_DEPLOY_HOOK`.
