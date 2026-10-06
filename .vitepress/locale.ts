@@ -28,6 +28,7 @@ export function defineLocaleConfig(locale: string): AdditionalConfig {
         { text: "Home", link: addPrefix("/") },
         buildNav("OhDay", "ohday"),
         buildNav("OhNet", "ohnet"),
+        buildNav("OhDoc", "ohdoc"),
       ] as DefaultTheme.NavItem[],
     },
   } as UserConfig
@@ -35,6 +36,7 @@ export function defineLocaleConfig(locale: string): AdditionalConfig {
   const sidebar = [
     buildSidebar("ohday"),
     buildSidebar("ohnet"),
+    buildSidebar("ohdoc"),
   ] as VitePressSidebarOptions[]
 
   return defineAdditionalConfig(withSidebar(config, sidebar))
