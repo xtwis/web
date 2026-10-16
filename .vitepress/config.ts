@@ -37,8 +37,6 @@ const option = {
   markdown: {
     html: false,
   },
-
-  ignoreDeadLinks: true,
 } as const satisfies UserConfig
 
 // https://vitepress.dev/reference/site-config
