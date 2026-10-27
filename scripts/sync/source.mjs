@@ -29,6 +29,11 @@ export default {
       repo: "xtwis/ohdoc",
       ref: "main",
     },
+    {
+      slug: "ohstart",
+      repo: "xtwis/ohstart",
+      ref: "main",
+    },
   ],
   locales: ["en", "zh"],
 }
