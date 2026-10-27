@@ -14,11 +14,19 @@ hero:
 
 features:
   - title: "@xtwis/ohday"
-    details: Chainable, immutable, lightweight date/time processing library. Zero dependencies, dayjs-sized footprint, full TypeScript types.
-    link: https://github.com/xtwis/ohday
-    linkText: Repository
+    details: Chainable, immutable, lightweight date/time processing library.
+    link: /en/ohday
+    linkText: Docs
   - title: "@xtwis/ohnet"
     details: Fluent, immutable HTTP client with middleware pipeline for building business-oriented request frameworks.
-    link: https://github.com/xtwis/ohnet
-    linkText: Repository
+    link: /en/ohnet
+    linkText: Docs
+  - title: "@xtwis/ohdoc"
+    details: Repository-level local development documentation site.
+    link: /en/ohdoc
+    linkText: Docs
+  - title: "@xtwis/ohstart"
+    details: One-command project initialization or suite installation script.
+    link: /en/ohstart
+    linkText: Docs
 ---
