@@ -2,6 +2,7 @@
   "framework": "vitepress",
   "buildCommand": "pnpm build:sync",
   "outputDirectory": ".vitepress/dist",
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/en/:path*",
