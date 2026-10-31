@@ -5,25 +5,24 @@ import { writeDocs } from "./write.mjs"
 
 const SOURCE_URL = new URL("./source.mjs", import.meta.url)
 
-function routePath(sourcePath, slug, locales) {
+function routePath(sourcePath, slug, source) {
   const lower = sourcePath.toLowerCase()
-  for (const dir of locales) {
+  for (const dir of source.locales) {
     const dirLower = dir.toLowerCase()
     if (lower === dirLower || lower.startsWith(`${dirLower}/`)) {
-      const rest = sourcePath.slice(dirLower.length + 1)
-      return `${dir}/${slug}/${rest}`
+      const rest = sourcePath.slice(dir.length + 1)
+      return dir === source.root ? `${slug}/${rest}` : `${dir}/${slug}/${rest}`
     }
   }
-  const def = locales[0]
-  return `${def}/${slug}/${sourcePath}`
+  return `${slug}/${sourcePath}`
 }
 
-async function processItem(item, locales) {
+async function processItem(item, source) {
   const { repo, ref, slug } = item
 
   try {
     const folder = await fetchDocs(repo, ref)
-    const files = folder.map(f => ({ ...f, path: routePath(f.path, slug, locales) }))
+    const files = folder.map(f => ({ ...f, path: routePath(f.path, slug, source) }))
     await writeDocs(files)
   }
   catch (e) {
@@ -35,9 +34,13 @@ export async function run() {
   logger("info", "syncing docs...\n")
 
   const mod = await import(SOURCE_URL.href)
-  const { items, locales } = mod.default
-  for (const item of items) {
-    await processItem(item, locales)
+  const source = mod.default
+  if (!source.locales.includes(source.root)) {
+    throw new Error(`root "${source.root}" must be one of ${source.locales.join(", ")}`)
+  }
+
+  for (const item of source.items) {
+    await processItem(item, source)
     logger("info", `sync ${item.repo} done`)
   }
 

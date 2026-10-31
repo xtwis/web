@@ -2,36 +2,38 @@ import { readdir, rm } from "node:fs/promises"
 import { join } from "node:path"
 import process from "node:process"
 import { logger } from "../logger.mjs"
+import source from "../sync/source.mjs"
 
 const DOCS = join(process.cwd(), "docs")
 
-const LOCALES = new Set(["en", "zh"])
-const PROTECTED_LOCALE = new Set(["index.md", "config.ts", ".gitignore"])
-const PROTECTED_TOP = new Set(["public", ".gitignore"])
+const SECONDARY = source.locales.filter(locale => locale !== source.root)
+const ROOT_KEEP = new Set(["public", ".gitignore", "index.md", "config.ts", ...SECONDARY])
+const LOCALE_KEEP = new Set([".gitignore", "index.md", "config.ts"])
 
-const PROTECTED = new Set([
-  ...PROTECTED_TOP,
-  ...[...LOCALES].flatMap(locale =>
-    [...PROTECTED_LOCALE].map(file => `${locale}/${file}`),
-  ),
-])
-
-async function clean(dir, relBase = "") {
-  const entries = await readdir(dir, { withFileTypes: true })
+async function clear(dir, keep) {
+  let entries
+  try {
+    entries = await readdir(dir, { withFileTypes: true })
+  }
+  catch {
+    return
+  }
   await Promise.all(entries.map(async (entry) => {
-    const relPath = `${relBase}${entry.name}`
-    if (PROTECTED.has(relPath)) {
-      return
-    }
-    if (entry.isDirectory() && LOCALES.has(entry.name)) {
-      await clean(join(dir, entry.name), `${relPath}/`)
+    if (keep.has(entry.name)) {
       return
     }
     await rm(join(dir, entry.name), { recursive: true, force: true })
   }))
 }
 
-clean(DOCS).then(() => {
+async function run() {
+  await clear(DOCS, ROOT_KEEP)
+  for (const locale of SECONDARY) {
+    await clear(join(DOCS, locale), LOCALE_KEEP)
+  }
+}
+
+run().then(() => {
   logger("info", "clean docs done\n")
 }).catch((err) => {
   logger("error", "clean docs failed: ", err.message)

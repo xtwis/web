@@ -19,8 +19,9 @@ pnpm build
 
 ## Structure
 
-- `docs/` — VitePress source (this repo's own content).
-- `docs/<locale>/<slug>/` — _generated_, not committed. Synced from each package repo's `docs/` during Vercel build (`pnpm build:sync`).
+- `docs/` — VitePress source; also the default locale (English), served at `/`.
+- `docs/zh/` — Chinese locale, served at `/zh/`.
+- `docs/<slug>/` and `docs/zh/<slug>/` — _generated_, not committed. Synced from each package repo's `docs/` during Vercel build (`pnpm build:sync`).
 
 ## Deployment
 

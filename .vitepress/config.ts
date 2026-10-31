@@ -22,15 +22,13 @@ const option = {
   },
 
   locales: {
-    en: {
+    root: {
       label: "English",
       lang: "en",
-      dir: "en",
     },
     zh: {
       label: "简体中文",
-      lang: "zh_CN",
-      dir: "zh",
+      lang: "zh-CN",
     },
   },
 

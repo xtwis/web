@@ -3,7 +3,9 @@
 
 # 白名单
 !.gitignore
-!public
 
-!en/
+!index.md
+!config.ts
+
+!public
 !zh/

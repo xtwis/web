@@ -36,4 +36,5 @@ export default {
     },
   ],
   locales: ["en", "zh"],
+  root: "en",
 }
