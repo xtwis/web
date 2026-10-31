@@ -1,6 +1,7 @@
 import type { UserConfig } from "vitepress"
 import { defineConfig } from "vitepress"
 import { withSidebar } from "vitepress-sidebar"
+import { emitArtifacts, textAlternateHead } from "./site"
 
 const option = {
   srcDir: "docs",
@@ -35,6 +36,9 @@ const option = {
   markdown: {
     html: false,
   },
+
+  transformHead: textAlternateHead,
+  buildEnd: emitArtifacts,
 } as const satisfies UserConfig
 
 // https://vitepress.dev/reference/site-config
