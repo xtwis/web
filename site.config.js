@@ -1,36 +1,42 @@
 /**
- * @typedef {object} Item
+ * @typedef {object} Package
+ * @property {string} path Local path segment
+ * @property {string} title Package title
  * @property {string} repo Repository in "owner/name" format
  * @property {string} ref Git ref (branch, tag, or SHA)
- * @property {string} slug Local path segment
  */
 
 /**
- * @typedef {object} Source
- * @property {Item[]} items Items to sync
+ * @typedef {object} SiteConfig
+ * @property {Package[]} packages Packages to sync
  * @property {string[]} locales Locale directories
+ * @property {string} root Locale served at the site root
  */
 
-/** @type {Source} */
+/** @type {SiteConfig} */
 export default {
-  items: [
+  packages: [
     {
-      slug: "ohday",
+      path: "ohday",
+      title: "OhDay",
       repo: "xtwis/ohday",
       ref: "main",
     },
     {
-      slug: "ohnet",
+      path: "ohnet",
+      title: "OhNet",
       repo: "xtwis/ohnet",
       ref: "main",
     },
     {
-      slug: "ohdoc",
+      path: "ohdoc",
+      title: "OhDoc",
       repo: "xtwis/ohdoc",
       ref: "main",
     },
     {
-      slug: "ohstart",
+      path: "ohstart",
+      title: "OhStart",
       repo: "xtwis/ohstart",
       ref: "main",
     },

@@ -1,12 +1,12 @@
 import { readdir, rm } from "node:fs/promises"
 import { join } from "node:path"
 import process from "node:process"
+import site from "../../site.config.js"
 import { logger } from "../logger.mjs"
-import source from "../sync/source.mjs"
 
 const DOCS = join(process.cwd(), "docs")
 
-const SECONDARY = source.locales.filter(locale => locale !== source.root)
+const SECONDARY = site.locales.filter(locale => locale !== site.root)
 const ROOT_KEEP = new Set(["public", ".gitignore", "index.md", "config.ts", ...SECONDARY])
 const LOCALE_KEEP = new Set([".gitignore", "index.md", "config.ts"])
 

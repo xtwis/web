@@ -1,3 +1,4 @@
-import { defineLocaleConfig, ROOT_LOCALE } from "../.vitepress/locale"
+import { defineLocaleConfig } from "../.vitepress/locale"
+import site from "../site.config"
 
-export default defineLocaleConfig(ROOT_LOCALE)
+export default defineLocaleConfig(site.root)

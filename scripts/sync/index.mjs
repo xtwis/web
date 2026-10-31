@@ -1,28 +1,27 @@
 import process from "node:process"
+import site from "../../site.config.js"
 import { logger } from "../logger.mjs"
 import { fetchDocs } from "./github.mjs"
 import { writeDocs } from "./write.mjs"
 
-const SOURCE_URL = new URL("./source.mjs", import.meta.url)
-
-function routePath(sourcePath, slug, source) {
+function routePath(sourcePath, path, config) {
   const lower = sourcePath.toLowerCase()
-  for (const dir of source.locales) {
+  for (const dir of config.locales) {
     const dirLower = dir.toLowerCase()
     if (lower === dirLower || lower.startsWith(`${dirLower}/`)) {
       const rest = sourcePath.slice(dir.length + 1)
-      return dir === source.root ? `${slug}/${rest}` : `${dir}/${slug}/${rest}`
+      return dir === config.root ? `${path}/${rest}` : `${dir}/${path}/${rest}`
     }
   }
-  return `${slug}/${sourcePath}`
+  return `${path}/${sourcePath}`
 }
 
-async function processItem(item, source) {
-  const { repo, ref, slug } = item
+async function processPackage(item, config) {
+  const { repo, ref, path } = item
 
   try {
     const folder = await fetchDocs(repo, ref)
-    const files = folder.map(f => ({ ...f, path: routePath(f.path, slug, source) }))
+    const files = folder.map(f => ({ ...f, path: routePath(f.path, path, config) }))
     await writeDocs(files)
   }
   catch (e) {
@@ -33,14 +32,12 @@ async function processItem(item, source) {
 export async function run() {
   logger("info", "syncing docs...\n")
 
-  const mod = await import(SOURCE_URL.href)
-  const source = mod.default
-  if (!source.locales.includes(source.root)) {
-    throw new Error(`root "${source.root}" must be one of ${source.locales.join(", ")}`)
+  if (!site.locales.includes(site.root)) {
+    throw new Error(`root "${site.root}" must be one of ${site.locales.join(", ")}`)
   }
 
-  for (const item of source.items) {
-    await processItem(item, source)
+  for (const item of site.packages) {
+    await processPackage(item, site)
     logger("info", `sync ${item.repo} done`)
   }
 

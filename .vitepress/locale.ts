@@ -2,11 +2,10 @@ import type { AdditionalConfig, DefaultTheme, UserConfig } from "vitepress"
 import type { VitePressSidebarOptions } from "vitepress-sidebar/types"
 import { defineAdditionalConfig } from "vitepress"
 import { withSidebar } from "vitepress-sidebar"
-
-export const ROOT_LOCALE = "en"
+import site from "../site.config"
 
 export function defineLocaleConfig(locale: string): AdditionalConfig {
-  const isRoot = locale === ROOT_LOCALE
+  const isRoot = locale === site.root
   const prefix = isRoot ? "" : `/${locale}`
   const toUrl = (path: string): string => `${prefix}/${path}`.replace(/\/{2,}/g, "/")
   const toDisk = (path: string): string => (isRoot ? path : `${locale}/${path}`)
@@ -31,20 +30,12 @@ export function defineLocaleConfig(locale: string): AdditionalConfig {
     themeConfig: {
       nav: [
         { text: "Home", link: toUrl("") },
-        buildNav("OhDay", "ohday"),
-        buildNav("OhNet", "ohnet"),
-        buildNav("OhDoc", "ohdoc"),
-        buildNav("OhStart", "ohstart"),
+        ...site.packages.map(pkg => buildNav(pkg.title, pkg.path)),
       ] as DefaultTheme.NavItem[],
     },
   } as UserConfig
 
-  const sidebar = [
-    buildSidebar("ohday"),
-    buildSidebar("ohnet"),
-    buildSidebar("ohdoc"),
-    buildSidebar("ohstart"),
-  ] as VitePressSidebarOptions[]
+  const sidebar = site.packages.map(pkg => buildSidebar(pkg.path))
 
   return defineAdditionalConfig(withSidebar(config, sidebar))
 }
